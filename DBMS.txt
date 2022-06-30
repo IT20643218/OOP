@@ -1,0 +1,90 @@
+-->convert cmd to mysql client<--
+mysql -uroot -hlocalhost -p/password/
+
+-->to show all databases<--
+show databases; 
+
+-->to create new database<--
+create database DreamLab; 
+
+-->to use database<--
+use DreamLab; 
+
+-->Create Table type one<--
+create table customer(
+	id varchar(10) primary key,
+	name varchar(50) not null,
+	address varchar(100) not null,
+	nic varchar(15),
+	contact int(10)
+);
+
+-->Create Table type two<--
+create table customer(
+	id varchar(10) primary key,
+	name varchar(50) not null,
+	address varchar(100) not null,
+	nic varchar(15),
+	contact int(10),
+	constraint primary key(id)
+);
+
+-->to show all table in database<-- 
+show tables; 
+
+-->to delete table in database<--
+drop table customer;
+
+-->describe table in database<--
+describe customer;
+desc customer;
+
+-->Data insert to Table-->
+Type I-->
+insert into customer values('C001','Sumedha Lakmal','Gall','952550411V','0767078124');
+insert into customer values('C002','Lasindu ayalath','Galgamuwa','952540125V','0703201310');
+
+Type II-->
+insert into custometr values('C003','Malindu Lakshan','Anradhapura','2000203010V','0767561010'),
+('C004','Kamal Silva','Kandy','1995203010V','0757561010'),('C005','Upul Kumara','Mathara','2100203010V','0707561010');
+
+Type III (values pass the selected columes)-->
+insert into customer (id,name,address) values('C007','Dinithi','Panadura');
+
+-->Data delete in table-->
+delete from customer; -->to delete all data in table(not recomended)
+truncate customer; -->to delete all data in table(recomended)
+
+-->to delete selected row in table-->
+delete from customer where id = 'C004';
+delete from customer where address = 'Gall';
+
+-->Update Data in table-->
+update customer set contact = 0767078124 where id ='C002';
+
+update customer set name ='Sumedha Lakmal',address='Galgamuwa',where id='C005';
+
+update customer set address='colombo' where address = 'Gall';
+
+-->Read / Retrive Data in Table-->
+
+-->Read all Data-->
+select * from customer;
+
+select name from customer;-->Read all data in selected column
+
+select name,address,nic from customer;-->Read all data in selected columns
+
+select * from customer where id = 'C004';
+
+select * from customer where address = 'Colombo';
+
+select name,address,contect from customer where id = 'C005';
+
+select * from customer limit 4;
+
+select * from customer order by nic asc;
+
+select * from customer order by nic desc;
+
+select id from customer order by id desc limit 1;
