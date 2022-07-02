@@ -88,3 +88,172 @@ select * from customer order by nic asc;
 select * from customer order by nic desc;
 
 select id from customer order by id desc limit 1;
+
+-->unique key-->
+create table customer(
+	id varchar(10) primary key,
+	name varchar(50) not null,
+	address varchar(100) not null,
+	nic varchar(15) unique,
+	contact int(10) unique,
+	constraint primary key(id)
+);
+
+create table customer(
+	id varchar(10) primary key,
+	name varchar(50) not null,
+	address varchar(100) not null,
+	nic varchar(15),
+	contact int(10),
+	constraint uniqque (contact)
+);
+
+primary key --> can not be null
+unique key --> can be null
+
+-->Relational Databases-->
+01.One to One
+02.One to Many
+03.Many to Many
+
+-->01.one to one <--
+
+create database home;
+
+use home;
+
+create table member(
+	id varchar(5) primary key,
+	name varchar(20) not null,
+	nic varchar(20) unique,
+	contact varchar(20) unique
+);
+
+create table car(
+	number varcher(10) primary key,
+	model varchar(20) null,
+	member_id varchar(5) not null,
+	constraint unique(member_id),
+	constraint foreign key (member_id)reference member(id)
+);
+
+-->insert values to member table<--
+insert into member values('C001','Sumedha Lakmal','962025411V','0767078124');
+insert into member values('C002','Sugath Nimal','962025411V','0767078124');
+insert into member values('C005','Kamal Deshapriya','962025411V','0767078124');
+insert into member (id,name) values ('C006','Piyumal perera');
+
+-->insert values to car table<--
+insert into car values('spAAA-1010','BMW','C008');
+insert into car values('spABB-1020','Audi','C009');
+insert into car values('spACC-1150','Toyota','C011');
+
+-->02.one to many<--
+
+create table member(
+	id varchar(5)primary key,
+	name varchar(20) not null,
+	nic varchar(20) unique,
+	contact varchar(20) unique
+);  
+
+create table car(
+	number varchar(10)primary key,
+	model varchar(20)not null,
+	member_id varchar(5) not null,
+	constraint foreign key(member_id) references member(id)
+);
+
+-->insert values to member table<--
+insert into member values('M001','Sumedha Lakmal','962025411V','0767078124');
+insert into member values('M002','Sugath Nimal','962025411V','0767078124');
+insert into member values('M003','Kamal Deshapriya','962025411V','0767078124');
+insert into member (id,name) values ('C004','Piyumal perera');
+
+-->insert values to car table<--
+insert into car values('spAAA-1010','BMW','M001');
+insert into car values('spABB-1020','Audi','M001');
+insert into car values('spACC-1150','Toyota','M002');
+insert into car values('spACC-1150','Benz','M002');
+insert into car values('spACC-1150','Honda','M003');
+
+-->02.Many to Many<--
+create table member(
+	id varchar(6) primary key,
+	name varchar(20) not null,
+	address varchar(20) not null,
+	nic varchar(20)unique,
+	contact varchar(20)unique
+);
+
+create table car(
+	number varchar(10) primary key,
+	model varchar(20) not null
+);
+
+create table member_car(
+	member_id varchar(6) not null,
+	car_number varchar(10)not null,
+	constraint foreign key(member_id)reference member(id),
+	constraint foreign key(car_number)reference car(number),
+	constraint primary key(member_id,car_number)
+);
+
+-->insert values to member table-->
+insert into member values('M001','Kamal Perera','Gall','882541478v','0785041256');
+insert into member values('M002','Nimali Perera','Gall','872541478v','0775041256');
+insert into member values('M003','Tharindu Perera','Gall','862541478v','0725041256');
+insert into member values('M004','Piyumi Perera','Gall','852541478v','0715041256');
+
+===========================================================================================
+
+delete from member where id = ''C002';
+
+update member set id = 'C007' where id = 'C003';
+
+-------------------------------------------------------------------------------------------
+create table member(
+	id varchar(5) primary key,
+	name varchar(20) not null,
+	nic varchar(20) unique,
+	contact varchar(20) unique
+);
+
+create table car(
+	number varchar(10)primary key,
+	model varchar(20) not null,
+	member_id varchar(5) not null,
+	constraint unique(member_id),
+	constraint foreign key(member_id) reference member(id) on delete cascade on update cascade
+);
+
+
+-->Inner Join
+
+select * from member inner join car on member.id = car.member_id;
+
+select id,name,number,model from member inner join car on member.id = car.member_id;
+
+select m.id,m.name,c.number,c.model from member m inner join car c on m.id = c.member_id;
+
+-->Left join
+select * from member left join car on member.id = car.member_id;
+
+select id,name,number,model from member left join car on member.id = car.member_id;
+
+select m.id,m.name,c.number,c.model from member m left join car c on m.id = c.member_id;
+
+-->Right join
+select * from member right join car on member.id = car.member_id;
+
+select id,name,number,model from member right join car on member.id = car.member_id;
+
+select m.id,m.name,c.number,c.model from member m right join car c on m.id = c.member_id;
+
+-->full outer oin
+In Sql-->
+	select * from member full outer join car on member.id = car.member_id;
+In MySQL-->
+	select * from member left car on member.id = car.member_id
+	union
+	select * from member right car on member.id = car.member_id;
