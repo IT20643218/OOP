@@ -29,9 +29,4 @@ public class Userdto {
         this.address = address;
     }
 
-    public Userdto(int id, String name, String address) {
-        this.id = id;
-        Name = name;
-        this.address = address;
-    }
 }
