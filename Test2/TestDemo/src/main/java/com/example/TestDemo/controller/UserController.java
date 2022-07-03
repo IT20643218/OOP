@@ -35,7 +35,20 @@ public class UserController {
     }
 
     @DeleteMapping("/deleteUser")
-    public String deleteUser(){
-        return "Delete User";
+    public boolean deleteUser(@RequestBody Userdto userdto){
+        return userService.deleteUser(userdto);
     }
+
+    @GetMapping("/getUserid/{UserId}")
+    public Userdto getUserid(@PathVariable String UserId){
+        return userService.getUserid(UserId);
+    }
+
+    @GetMapping("/getUseridAndaddress/{UserId}/{address}")
+    public Userdto getUseridAndaddress(@PathVariable String UserId,@PathVariable String address){
+        System.out.println("User Id :" + UserId + "User Address :" + address);
+        return userService.getUseridAndaddress(UserId,address);
+    }
+
+
 }

@@ -35,4 +35,24 @@ public class UserService {
         return userdto;
     }
 
+    public boolean deleteUser(Userdto userdto){
+        userRepo.delete(modelMapper.map(userdto,User.class));
+        return true;
+    }
+
+    //custom quary
+    //User id > User  Details
+    //select * from user whers id = 1
+    public Userdto getUserid(String UserId){
+       User user = userRepo.getUserid(UserId);
+       return modelMapper.map(user,Userdto.class);
+    }
+
+    //User id ,address > User Details
+    //select * from user where id= 2 and address ="Galgamuwa"
+    public Userdto getUseridAndaddress(String UserId,String address){
+        User user = userRepo.getUseridAndaddress(UserId,address);
+        return modelMapper.map(user,Userdto.class);
+    }
+
 }
